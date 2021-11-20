@@ -1,5 +1,6 @@
 import xml.etree.ElementTree as et
 import unicodedata
+import argparse
 
 def is_japanese(string):
   for ch in string:
@@ -33,4 +34,9 @@ def remove_japanese_name(source_file, output_file='result.xml', debug=False):
       for val in remove_records:
         f.writelines("{}\n".format(val))
 
-remove_japanese_name('./data/j-league-player-1.xml', './formatted/j-league-player-1.xml')
+parser = argparse.ArgumentParser()
+parser.add_argument("input", help="Input XML file", type=str)
+parser.add_argument("output", help="Output XML file", type=str)
+args = parser.parse_args()
+
+remove_japanese_name(args.input, args.output)
